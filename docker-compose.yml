@@ -17,6 +17,7 @@ services:
 
   # Polls Docker Hub and recreates the portfolio container on a new image push.
   # Scoped to "portfolio" so it ignores the bookme/stash containers on the NAS.
+  # Acts as a backstop to the CI deploy (build-deploy.yml).
   watchtower:
     image: containrrr/watchtower
     restart: unless-stopped
@@ -25,3 +26,21 @@ services:
     command: --interval 300 --cleanup --scope portfolio
     labels:
       - "com.centurylinklabs.watchtower.scope=portfolio"
+
+  # Self-hosted GitHub Actions runner for the CI deploy. Self-registers against
+  # Vanakata/portfolio-aware-solutions on startup; confirm it shows up under
+  # Settings → Actions → Runners as `portfolio-runner`.
+  github-runner:
+    image: myoung34/github-runner:latest
+    restart: unless-stopped
+    environment:
+      REPO_URL: https://github.com/Vanakata/portfolio-aware-solutions
+      ACCESS_TOKEN: ${GITHUB_PAT}
+      RUNNER_NAME: portfolio-runner
+      RUNNER_SCOPE: repo
+      LABELS: self-hosted,Linux,X64
+      RUNNER_WORKDIR: /volume1/docker/portfolio/runner/work
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /volume1/docker/portfolio:/volume1/docker/portfolio
+      - /volume1/docker/portfolio/runner:/volume1/docker/portfolio/runner

@@ -1,0 +1,30 @@
+name: Build & Deploy to NAS
+
+on:
+  push:
+    branches: [develop]
+
+jobs:
+  build:
+    runs-on: self-hosted
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # Build AND push so the registry `latest` always matches the freshly built
+      # image; otherwise watchtower (polls Hub every 300s) would revert the
+      # container to the stale Hub `latest` within ~5 min.
+      - name: Build & push Docker image
+        run: |
+          docker build -t vanakata/portfolio:latest .
+          docker push vanakata/portfolio:latest
+
+      - name: Recreate portfolio container
+        run: |
+          docker compose -f /volume1/docker/portfolio/docker-compose.yml up -d --force-recreate --no-deps portfolio

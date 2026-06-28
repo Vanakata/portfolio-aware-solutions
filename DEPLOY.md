@@ -44,16 +44,49 @@ Cloudflare creates the apex DNS record (CNAME flattening) and terminates HTTPS, 
 container keeps serving plain HTTP on 3000. Add a second hostname for `www` →
 same service if you want `www.awaresolutions.eu` to work too.
 
-## Day-to-day deploy
+## Deploy options
+
+### A. Manual (no CI)
 ```powershell
 .\build-and-push.ps1 -Push   # build + push; watchtower recreates within ~5 min
 ```
+
+### B. CI — deploy on `git push` (mirrors BookMe)
+Push to `develop` → the self-hosted runner builds, pushes to Docker Hub, and
+recreates the container. `master` only runs the CI checks.
+
+```
+push to develop ──▶ ci.yml            (npm ci → tsc → next build, on GitHub-hosted)
+                └─▶ build-deploy.yml   (docker build → push → recreate, on NAS runner)
+```
+
+**One-time:**
+
+1. **GitHub repo secrets** (`Settings → Secrets and variables → Actions`):
+
+   | Secret | What |
+   |---|---|
+   | `DOCKERHUB_USERNAME` | `vanakata` |
+   | `DOCKERHUB_TOKEN` | Docker Hub access token (read/write) |
+
+   `GITHUB_TOKEN` is provided automatically.
+
+2. **Runner on the NAS** — the `github-runner` service in `docker-compose.yml`
+   self-registers. Put a repo-scoped `GITHUB_PAT` in `.env` (see `.env.example`),
+   then `docker compose up -d`. Confirm it appears under
+   `Settings → Actions → Runners` as `portfolio-runner`.
+
+3. **Branch:**
+   ```sh
+   git checkout -b develop && git push -u origin develop
+   ```
+   Day-to-day work happens on `develop`; that's what deploys.
 
 ## Ports (to avoid clashing on the same NAS)
 - Portfolio: host `8086` → container `3000`
 - (BookMe api `8082`, see its DEPLOY.md)
 
-## Optional — full CI parity
-To match BookMe (self-hosted runner + GitHub Actions on push to `develop`), add a
-`github-runner` service to the compose file and a `build-deploy.yml` workflow. Not
-needed for a static site, but available if you want git-push deploys.
+## Optional — auto-version on `main`
+BookMe also has an `auto-version.yml` that uses Claude to bump the version + write a
+CHANGELOG on push to `main`. Portable here by bumping `package.json` instead of the
+`.csproj` — say the word and I'll add the workflow + script (needs `ANTHROPIC_API_KEY`).
