@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Anton, Caveat, Inter } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/components/LanguageProvider";
@@ -27,6 +27,24 @@ export const metadata: Metadata = {
   description:
     "Aware Solutions (awaresolutions.eu) — a small, self-made software studio. Products built end to end, with an eye on the future.",
   metadataBase: new URL("https://awaresolutions.eu"),
+  applicationName: "Aware Solutions",
+  appleWebApp: {
+    capable: true,
+    title: "Aware Solutions",
+    statusBarStyle: "default",
+  },
+  icons: {
+    icon: [
+      { url: "/favicon.png", sizes: "48x48", type: "image/png" },
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#16150f",
 };
 
 export default function RootLayout({

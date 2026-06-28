@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <circle cx="256" cy="256" r="248" fill="#16150f"/>
+  <circle cx="256" cy="256" r="214" fill="none" stroke="#ffffff" stroke-width="7"/>
+  <text x="256" y="252" fill="#ffffff" font-family="Segoe Script, 'Brush Script MT', 'Comic Sans MS', cursive" font-size="320"
+        font-style="italic" text-anchor="middle" dominant-baseline="central">A</text>
+</svg>

@@ -7,7 +7,7 @@ export const defaultLocale: Locale = "bg";
 export type Localized<T> = Record<Locale, T>;
 
 export type Dict = {
-  brand: { name: string; nameRest: string; tld: string };
+  brand: { word1: string; word2: string; tagline: string };
   header: {
     eyebrow: string;
     tagline: string;
@@ -23,7 +23,11 @@ export type Dict = {
 
 export const dictionaries: Record<Locale, Dict> = {
   en: {
-    brand: { name: "aware", nameRest: "solutions", tld: ".eu" },
+    brand: {
+      word1: "Aware",
+      word2: "Solutions",
+      tagline: "Beyond the visible, towards the aware.",
+    },
     header: {
       eyebrow: "Software studio · awaresolutions.eu",
       tagline: "Built",
@@ -55,7 +59,11 @@ export const dictionaries: Record<Locale, Dict> = {
     },
   },
   bg: {
-    brand: { name: "aware", nameRest: "solutions", tld: ".eu" },
+    brand: {
+      word1: "Aware",
+      word2: "Solutions",
+      tagline: "Отвъд видимото, към осъзнатото.",
+    },
     header: {
       eyebrow: "Софтуерно студио · awaresolutions.eu",
       tagline: "Създадено",
