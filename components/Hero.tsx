@@ -17,13 +17,13 @@ export function Hero() {
         {t.hero.eyebrow}
       </motion.p>
 
-      <div className="relative mt-4 flex justify-center">
-        {/* Script accent overlapping the display word, like the mockup. */}
+      <div className="relative mt-8 flex flex-col items-center">
+        {/* Script accent sitting just above the display word, slightly skewed. */}
         <motion.span
           initial={{ opacity: 0, x: -20, rotate: -6 }}
-          animate={{ opacity: 1, x: 0, rotate: -8 }}
+          animate={{ opacity: 1, x: 0, rotate: -3 }}
           transition={{ delay: 0.25, duration: 0.6 }}
-          className="pointer-events-none absolute -top-6 left-1/2 z-20 -translate-x-[7.5rem] font-script text-5xl text-amber-deep sm:-translate-x-[12rem] sm:text-7xl"
+          className="z-20 -mb-3 -translate-x-2 font-script text-4xl text-amber-deep sm:-mb-6 sm:-translate-x-10 sm:text-6xl"
         >
           {t.hero.script}
         </motion.span>
@@ -32,7 +32,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1, duration: 0.6 }}
-          className="font-display text-[18vw] leading-[0.85] tracking-tight text-ink sm:text-[10rem]"
+          className="font-display font-bold text-[20vw] leading-[0.85] tracking-tighter text-ink sm:text-[11rem]"
         >
           {t.hero.title}
         </motion.h1>

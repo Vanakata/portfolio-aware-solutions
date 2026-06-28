@@ -19,7 +19,7 @@ export function About() {
           <p className="text-xs font-bold uppercase tracking-[0.3em] text-amber-deep">
             {t.about.label}
           </p>
-          <h2 className="text-balance mt-3 font-display text-4xl leading-[0.95] tracking-tight text-ink sm:text-5xl">
+          <h2 className="text-balance mt-3 font-display font-bold text-4xl leading-[0.95] tracking-tight text-ink sm:text-5xl">
             {t.about.heading}
           </h2>
         </div>

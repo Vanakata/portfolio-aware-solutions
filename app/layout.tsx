@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Anton, Caveat, Inter } from "next/font/google";
+import { Space_Grotesk, Caveat, Inter } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/components/LanguageProvider";
 
@@ -9,10 +9,10 @@ const inter = Inter({
   display: "swap",
 });
 
-const anton = Anton({
-  weight: "400",
+const spaceGrotesk = Space_Grotesk({
+  weight: ["500", "600", "700"],
   subsets: ["latin"],
-  variable: "--font-anton",
+  variable: "--font-space-grotesk",
   display: "swap",
 });
 
@@ -53,7 +53,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} ${anton.variable} ${caveat.variable} paper-grain`}
+        className={`${inter.variable} ${spaceGrotesk.variable} ${caveat.variable} paper-grain`}
       >
         <LanguageProvider>{children}</LanguageProvider>
       </body>

@@ -13,7 +13,7 @@ export function ProjectGrid() {
         <p className="text-xs font-bold uppercase tracking-[0.3em] text-amber-deep">
           {t.work.label}
         </p>
-        <h2 className="mt-2 font-display text-4xl tracking-tight text-ink sm:text-5xl">
+        <h2 className="mt-2 font-display font-bold text-4xl tracking-tight text-ink sm:text-5xl">
           {t.work.heading}
         </h2>
       </div>

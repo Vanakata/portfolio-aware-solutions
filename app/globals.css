@@ -17,11 +17,15 @@
   --color-amber-deep: #c0560f;
   --color-azure: #2f6bd6;
 
-  --font-display: var(--font-anton), "Arial Narrow", sans-serif;
+  --radius-card: 1.5rem;
+}
+
+/* Fonts must be `inline` so the utility resolves the next/font CSS variable
+ * (defined on <body>) at the element, instead of an unresolved :root lookup. */
+@theme inline {
+  --font-display: var(--font-space-grotesk), "Arial Narrow", sans-serif;
   --font-script: var(--font-caveat), cursive;
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-
-  --radius-card: 1.5rem;
 }
 
 :root {

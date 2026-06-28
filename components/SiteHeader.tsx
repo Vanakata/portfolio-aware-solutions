@@ -23,7 +23,7 @@ export function SiteHeader() {
         <a href="/" className="flex items-center gap-3">
           <BrandBadge />
           <span className="leading-tight">
-            <span className="block font-display text-xl tracking-tight text-ink sm:text-2xl">
+            <span className="block font-display font-bold text-xl tracking-tight text-ink sm:text-2xl">
               {t.brand.word1}{" "}
               <span className="text-ink-faint">{t.brand.word2}</span>
             </span>

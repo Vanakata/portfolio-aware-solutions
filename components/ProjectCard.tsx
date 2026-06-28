@@ -55,7 +55,7 @@ export function ProjectCard({ project, i }: { project: Project; i: number }) {
         </span>
       </div>
 
-      <h3 className="mt-4 font-display text-3xl tracking-tight text-ink">
+      <h3 className="mt-4 font-display font-bold text-3xl tracking-tight text-ink">
         {project.name}
       </h3>
       <p className={`mt-1 text-sm font-semibold ${accent.text}`}>
