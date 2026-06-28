@@ -90,7 +90,7 @@ export const projects: Project[] = [
     accent: "azure",
     links: {
       repo: "https://github.com/Vanakata/BookMe",
-      live: "https://bookme.awaresolutions.eu",
+      live: "https://salon.awaresolutions.eu",
     },
     status: "In development",
   },
