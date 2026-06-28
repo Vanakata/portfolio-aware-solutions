@@ -1,10 +1,27 @@
+# Production stack — lives on the NAS at /volume1/docker/portfolio/docker-compose.yml
+# Mirrors the BookMe/MyStash setup: prebuilt Docker Hub image + scoped watchtower.
+# Bring up with:  docker compose up -d
 services:
   portfolio:
-    build: .
-    image: portfolio-aware-solutions:latest
-    container_name: portfolio
+    image: vanakata/portfolio:latest
     restart: unless-stopped
     ports:
-      - "3000:3000"
+      # host 8086 → container 3000 (Next.js). Pick any free host port; it's what
+      # the Cloudflare tunnel public hostname points at (http://<NAS_IP>:8086).
+      - "8086:3000"
     environment:
       - NODE_ENV=production
+    labels:
+      # Only containers in this scope are auto-updated by the watchtower below.
+      - "com.centurylinklabs.watchtower.scope=portfolio"
+
+  # Polls Docker Hub and recreates the portfolio container on a new image push.
+  # Scoped to "portfolio" so it ignores the bookme/stash containers on the NAS.
+  watchtower:
+    image: containrrr/watchtower
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --interval 300 --cleanup --scope portfolio
+    labels:
+      - "com.centurylinklabs.watchtower.scope=portfolio"
